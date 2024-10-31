@@ -72,4 +72,13 @@ public class DealerShipFileManager {
             System.out.println("Error writing to file: " + e.getMessage()); // Print error message
         }
     }
+
+    // Method to append a sale or lease record to the contracts CSV file
+    public void appendToContractsFile(String record) {
+        try (FileWriter writer = new FileWriter("contracts.csv", true)) { // Open in append mode
+            writer.write(record + "\n"); // Write the record to the file followed by a new line
+        } catch (IOException e) { // Handle any file writing errors
+            System.out.println("Error writing to contracts file: " + e.getMessage()); // Print error message
+        }
+    }
 }

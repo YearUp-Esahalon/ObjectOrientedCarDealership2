@@ -8,7 +8,7 @@ public class Dealership {
     private String name; // Name of the dealership
     private String address; // Address of the dealership
     private String phone; // Contact phone number for the dealership
-    private ArrayList<Vehicle> inventory; // List to hold the vehicles in the dealership <vehicle> the list contains objects of type vehicle.
+    private ArrayList<Vehicle> inventory; // List to hold the vehicles in the dealership
 
     // Constructor to initialize the dealership with name, address, and phone
     public Dealership(String name, String address, String phone) {
@@ -26,6 +26,44 @@ public class Dealership {
     // Method to retrieve all vehicles in the inventory
     public List<Vehicle> getAllVehicles() {
         return inventory; // Return the entire inventory list
+    }
+
+    // Method to get a vehicle by VIN
+    public Vehicle getVehicleByVin(int vin) {
+        for (Vehicle vehicle : inventory) { // Iterate through all vehicles in the inventory
+            if (vehicle.getVin() == vin) { // Check if the VIN matches
+                return vehicle; // Return the found vehicle
+            }
+        }
+        return null; // Return null if vehicle not found
+    }
+
+    // Method to sell a vehicle
+    public void sellVehicle(Vehicle vehicle, String buyerName, double salePrice) {
+        if (inventory.contains(vehicle)) { // Check if the vehicle is in the inventory
+            inventory.remove(vehicle); // Remove the vehicle from inventory
+            // Create a record for the sale
+            String record = "Sale," + vehicle.getVin() + "," + buyerName + "," + salePrice + "\n";
+            DealerShipFileManager fileManager = new DealerShipFileManager("contracts.csv");
+            fileManager.appendToContractsFile(record); // Append the record to the contracts file
+            System.out.println("Vehicle sold: " + vehicle.getMake() + " " + vehicle.getModel()); // Confirmation message
+        } else {
+            System.out.println("Vehicle not found in inventory."); // Message if vehicle is not found
+        }
+    }
+
+    // Method to lease a vehicle
+    public void leaseVehicle(Vehicle vehicle, String lesseeName, double leaseAmount) {
+        if (inventory.contains(vehicle)) { // Check if the vehicle is in the inventory
+            inventory.remove(vehicle); // Remove the vehicle from inventory
+            // Create a record for the lease
+            String record = "Lease," + vehicle.getVin() + "," + lesseeName + "," + leaseAmount + "\n";
+            DealerShipFileManager fileManager = new DealerShipFileManager("contracts.csv");
+            fileManager.appendToContractsFile(record); // Append the record to the contracts file
+            System.out.println("Vehicle leased: " + vehicle.getMake() + " " + vehicle.getModel()); // Confirmation message
+        } else {
+            System.out.println("Vehicle not found in inventory."); // Message if vehicle is not found
+        }
     }
 
     // Method to get vehicles within a specified price range
