@@ -1,4 +1,4 @@
-package com.pluralsight; // Package declaration
+package com.pluralsight;
 
 // Class to represent a specific vehicle
 public class Vehicle {

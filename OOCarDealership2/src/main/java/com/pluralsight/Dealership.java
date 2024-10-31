@@ -1,6 +1,6 @@
 package com.pluralsight;
 
-import java.util.ArrayList; // Import ArrayList class
+import java.util.ArrayList; // Import ArrayList
 import java.util.List; // Import List interface
 
 public class Dealership {
@@ -10,12 +10,30 @@ public class Dealership {
     private String phone; // Contact phone number for the dealership
     private ArrayList<Vehicle> inventory; // List to hold the vehicles in the dealership
 
+    // Variables for buyer and leaser information
+    private String buyerName; // Name of the buyer
+    private String lesseeName; // Name of the lessee
+    private double salePrice; // Sale price of the vehicle
+    private double leaseAmount; // Lease amount of the vehicle
+
     // Constructor to initialize the dealership with name, address, and phone
     public Dealership(String name, String address, String phone) {
         this.name = name; // Set the dealership name
         this.address = address; // Set the dealership address
         this.phone = phone; // Set the dealership phone number
         this.inventory = new ArrayList<>(); // Instantiate the inventory ArrayList to hold vehicles
+    }
+
+    // Method to set buyer information
+    public void setBuyerInfo(String buyerName, double salePrice) {
+        this.buyerName = buyerName; // Set the buyer's name
+        this.salePrice = salePrice; // Set the sale price
+    }
+
+    // Method to set lessee information
+    public void setLesseeInfo(String lesseeName, double leaseAmount) {
+        this.lesseeName = lesseeName; // Set the lessee's name
+        this.leaseAmount = leaseAmount; // Set the lease amount
     }
 
     // Method to add a vehicle to the dealership's inventory
@@ -30,7 +48,7 @@ public class Dealership {
 
     // Method to get a vehicle by VIN
     public Vehicle getVehicleByVin(int vin) {
-        for (Vehicle vehicle : inventory) { // Iterate through all vehicles in the inventory
+        for (Vehicle vehicle : inventory) { // go through all vehicles in the inventory loopity loop
             if (vehicle.getVin() == vin) { // Check if the VIN matches
                 return vehicle; // Return the found vehicle
             }
@@ -39,13 +57,13 @@ public class Dealership {
     }
 
     // Method to sell a vehicle
-    public void sellVehicle(Vehicle vehicle, String buyerName, double salePrice) {
+    public void sellVehicle(Vehicle vehicle) {
         if (inventory.contains(vehicle)) { // Check if the vehicle is in the inventory
             inventory.remove(vehicle); // Remove the vehicle from inventory
             // Create a record for the sale
             String record = "Sale," + vehicle.getVin() + "," + buyerName + "," + salePrice + "\n";
             DealerShipFileManager fileManager = new DealerShipFileManager("contracts.csv");
-            fileManager.appendToContractsFile(record); // Append the record to the contracts file
+            fileManager.writeSalesRecord(record); // Append the record to the contracts file
             System.out.println("Vehicle sold: " + vehicle.getMake() + " " + vehicle.getModel()); // Confirmation message
         } else {
             System.out.println("Vehicle not found in inventory."); // Message if vehicle is not found
@@ -53,13 +71,13 @@ public class Dealership {
     }
 
     // Method to lease a vehicle
-    public void leaseVehicle(Vehicle vehicle, String lesseeName, double leaseAmount) {
+    public void leaseVehicle(Vehicle vehicle) {
         if (inventory.contains(vehicle)) { // Check if the vehicle is in the inventory
             inventory.remove(vehicle); // Remove the vehicle from inventory
             // Create a record for the lease
             String record = "Lease," + vehicle.getVin() + "," + lesseeName + "," + leaseAmount + "\n";
             DealerShipFileManager fileManager = new DealerShipFileManager("contracts.csv");
-            fileManager.appendToContractsFile(record); // Append the record to the contracts file
+            fileManager.writeSalesRecord(record); // Append the record to the contracts file
             System.out.println("Vehicle leased: " + vehicle.getMake() + " " + vehicle.getModel()); // Confirmation message
         } else {
             System.out.println("Vehicle not found in inventory."); // Message if vehicle is not found
@@ -70,9 +88,7 @@ public class Dealership {
     public List<Vehicle> getVehiclesByPrice(double min, double max) {
         List<Vehicle> vehiclesInRange = new ArrayList<>(); // Create a list to hold vehicles in the specified price range
 
-        // Iterate through all vehicles in the inventory
         for (Vehicle vehicle : inventory) {
-            // Check if the vehicle's price is within the specified range
             if (vehicle.getPrice() >= min && vehicle.getPrice() <= max) {
                 vehiclesInRange.add(vehicle); // Add the vehicle to the list if it matches the criteria
             }
@@ -84,9 +100,7 @@ public class Dealership {
     public List<Vehicle> getVehiclesByMakeModel(String make, String model) {
         List<Vehicle> matchingVehicles = new ArrayList<>(); // Create a list to hold matching vehicles
 
-        // Iterate through all vehicles in the inventory
         for (Vehicle vehicle : inventory) {
-            // Check if the vehicle's make and model match the specified values
             if (vehicle.getMake().equalsIgnoreCase(make) && vehicle.getModel().equalsIgnoreCase(model)) {
                 matchingVehicles.add(vehicle); // Add the vehicle to the list if it matches
             }
@@ -98,9 +112,7 @@ public class Dealership {
     public List<Vehicle> getVehiclesByYear(int min, int max) {
         List<Vehicle> vehiclesInYearRange = new ArrayList<>(); // Create a list to hold vehicles within the specified year range
 
-        // Iterate through all vehicles in the inventory
         for (Vehicle vehicle : inventory) {
-            // Check if the vehicle's year is within the specified range
             if (vehicle.getYear() >= min && vehicle.getYear() <= max) {
                 vehiclesInYearRange.add(vehicle); // Add the vehicle to the list if it matches the criteria
             }
@@ -112,9 +124,7 @@ public class Dealership {
     public List<Vehicle> getVehiclesByColor(String color) {
         List<Vehicle> vehiclesByColor = new ArrayList<>(); // Create a list to hold vehicles of the specified color
 
-        // Iterate through all vehicles in the inventory
         for (Vehicle vehicle : inventory) {
-            // Check if the vehicle's color matches the specified value
             if (vehicle.getColor().equalsIgnoreCase(color)) {
                 vehiclesByColor.add(vehicle); // Add the vehicle to the list if it matches
             }
@@ -126,9 +136,7 @@ public class Dealership {
     public List<Vehicle> getVehiclesByMileage(int min, int max) {
         List<Vehicle> vehiclesByMileage = new ArrayList<>(); // Create a list to hold vehicles within the specified mileage range
 
-        // Iterate through all vehicles in the inventory
         for (Vehicle vehicle : inventory) {
-            // Check if the vehicle's odometer reading is within the specified range
             if (vehicle.getOdometer() >= min && vehicle.getOdometer() <= max) {
                 vehiclesByMileage.add(vehicle); // Add the vehicle to the list if it matches the criteria
             }
@@ -140,9 +148,7 @@ public class Dealership {
     public List<Vehicle> getVehiclesByType(String vehicleType) {
         List<Vehicle> vehiclesByType = new ArrayList<>(); // Create a list to hold vehicles of the specified type
 
-        // Iterate through all vehicles in the inventory
         for (Vehicle vehicle : inventory) {
-            // Check if the vehicle's type matches the specified value
             if (vehicle.getVehicleType().equalsIgnoreCase(vehicleType)) {
                 vehiclesByType.add(vehicle); // Add the vehicle to the list if it matches
             }

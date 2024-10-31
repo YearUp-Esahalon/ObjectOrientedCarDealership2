@@ -74,7 +74,7 @@ public class DealerShipFileManager {
     }
 
     // Method to append a sale or lease record to the contracts CSV file
-    public void appendToContractsFile(String record) {
+    public void writeSalesRecord(String record) {
         try (FileWriter writer = new FileWriter("contracts.csv", true)) { // Open in append mode
             writer.write(record + "\n"); // Write the record to the file followed by a new line
         } catch (IOException e) { // Handle any file writing errors
