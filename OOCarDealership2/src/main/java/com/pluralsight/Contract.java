@@ -1,48 +1,64 @@
 package com.pluralsight;
 
-// Class representing a generic contract
-public class Contract {
-    // Common attributes for all contracts
-    private String date;            // Date of the contract
-    private String customerName;     // Name of the customer
-    private String customerEmail;    // Email of the customer
-    private String vehicleSold;      // Vehicle sold (VIN or description)
-    private double totalPrice;       // Total price of the vehicle
-    private double monthlyPayment;    // Monthly payment for leases
+// This is an abstract class representing a generic contract
+public abstract class Contract {
+    // Private variables to hold common attributes of a contract
+    private String date;            // The date of the contract
+    private String customerName;    // The name of the customer
+    private String customerEmail;   // The email of the customer
+    private String vehicleSold;      // The vehicle that was sold (could be a VIN or description)
 
-    // Constructor to initialize for properties 
-    public Contract(String date, String customerName, String customerEmail,
-                    String vehicleSold, double totalPrice, double monthlyPayment) {
-        this.date = date;
-        this.customerName = customerName;
-        this.customerEmail = customerEmail;
-        this.vehicleSold = vehicleSold;
-        this.totalPrice = totalPrice;
-        this.monthlyPayment = monthlyPayment;
+    // Constructor to initialize the contract with common attributes
+    public Contract(String date, String customerName, String customerEmail) {
+        this.date = date;                 // Set the contract date
+        this.customerName = customerName; // Set the customer's name
+        this.customerEmail = customerEmail; // Set the customer's email
+        this.vehicleSold = vehicleSold;   // Set the sold vehicle information
     }
 
-    // Getters plz
+    // Getter for the contract date
     public String getDate() {
-        return date;
+        return date; // Return the date of the contract
     }
 
+    // Getter for the customer's name
     public String getCustomerName() {
-        return customerName;
+        return customerName; // Return the customer's name
     }
 
+    // Getter for the customer's email
     public String getCustomerEmail() {
-        return customerEmail;
+        return customerEmail; // Return the customer's email
     }
 
+    // Getter for the sold vehicle information
     public String getVehicleSold() {
-        return vehicleSold;
+        return vehicleSold; // Return information about the sold vehicle
     }
 
-    public double getTotalPrice() {
-        return totalPrice;
+    // Setter for the contract date
+    public void setDate(String date) {
+        this.date = date; // Update the contract date
     }
 
-    public double getMonthlyPayment() {
-        return monthlyPayment;
+    // Setter for the customer's name
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName; // Update the customer's name
     }
+
+    // Setter for the customer's email
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail; // Update the customer's email
+    }
+
+    // Setter for the sold vehicle information
+    public void setVehicleSold(String vehicleSold) {
+        this.vehicleSold = vehicleSold; // Update information about the sold vehicle
+    }
+
+    // Abstract method to compute and return the total price of the contract
+    public abstract double getTotalPrice(); // To be implemented by subclasses
+
+    // Abstract method to compute and return the monthly payment for the contract
+    public abstract double getMonthlyPayment(); // To be implemented by subclasses
 }

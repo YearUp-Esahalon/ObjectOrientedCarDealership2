@@ -83,7 +83,7 @@ public class UserInterface {
         System.out.println("4. Find Vehicles by Make/Model"); // Option to find by make/model
         System.out.println("5. Find Vehicles by Year Range"); // Option to find by year
         System.out.println("6. Find Vehicles by Color"); // Option to find by color
-        System.out.println("7. Sell/Lease a Vehicle"); // New option to sell or lease a vehicle
+        System.out.println("7. Sell/Lease a Vehicle"); // Option to sell or lease a vehicle
         System.out.println("8. Exit"); // Option to exit the program
         System.out.print("Please enter your choice: "); // Ask user for input
     }
@@ -203,7 +203,7 @@ public class UserInterface {
         }
     }
 
-    // New method to sell or lease a vehicle
+    // Method to sell or lease a vehicle
     private void sellOrLeaseVehicle() {
         System.out.print("Enter VIN of the vehicle to sell/lease: "); // Ask for VIN
         int vin = scanner.nextInt(); // Read VIN
@@ -218,11 +218,29 @@ public class UserInterface {
         String action = scanner.next().toLowerCase(); // Read action and convert to lowercase
 
         if (action.equals("sell")) {
-            dealership.sellVehicle(vehicle); // Call method to sell vehicle
+            System.out.print("Enter buyer's name: "); // Ask for buyer's name
+            String buyerName = scanner.next(); // Read buyer's name
+            System.out.print("Enter sale price: "); // Ask for sale price
+            double salePrice = scanner.nextDouble(); // Read sale price
+            dealership.sellVehicle(vehicle, buyerName, salePrice); // Call method to sell vehicle
             System.out.println("Vehicle sold successfully!"); // Confirmation message
+
+            // Create a sales record as a string
+            String salesRecord = "SALE|" + vehicle.getVin() + "|" + vehicle.getMake() + "|" + vehicle.getModel() + "|" + salePrice;
+            fileManager.writeSalesRecord(salesRecord); // Write the sales record to the CSV file
+
         } else if (action.equals("lease")) {
-            dealership.leaseVehicle(vehicle); // Call method to lease vehicle
+            System.out.print("Enter lessee's name: "); // Ask for lessee's name
+            String lesseeName = scanner.next(); // Read lessee's name
+            System.out.print("Enter lease amount: "); // Ask for lease amount
+            double leaseAmount = scanner.nextDouble(); // Read lease amount
+            dealership.leaseVehicle(vehicle, lesseeName, leaseAmount); // Call method to lease vehicle
             System.out.println("Vehicle leased successfully!"); // Confirmation message
+
+            // Create a lease record as a string
+            String leaseRecord = "LEASE|" + vehicle.getVin() + "|" + vehicle.getMake() + "|" + vehicle.getModel() + "|" + leaseAmount;
+            fileManager.writeSalesRecord(leaseRecord); // Write the lease record to the CSV file
+
         } else {
             System.out.println("Invalid action! Please enter 'sell' or 'lease'."); // Inform user about invalid input
         }
