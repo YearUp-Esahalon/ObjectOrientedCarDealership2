@@ -75,7 +75,7 @@ public class UserInterface {
     }
 
     // Method to display the menu options
-    private void displayMenu() {
+    public void displayMenu() {
         System.out.println("Welcome to the Dealership Interface"); // Greeting
         System.out.println("1. View All Vehicles"); // Option to view all vehicles
         System.out.println("2. Add a Vehicle"); // Option to add a vehicle
@@ -89,7 +89,7 @@ public class UserInterface {
     }
 
     // Method to view all vehicles in the dealership
-    private void viewAllVehicles() {
+    public void viewAllVehicles() {
         List<Vehicle> vehicles = dealership.getAllVehicles(); // Get the list of vehicles
 
         if (vehicles.isEmpty()) { // Check if there are no vehicles
@@ -104,7 +104,7 @@ public class UserInterface {
     }
 
     // Method to add a new vehicle to the dealership
-    private void addVehicle() {
+    public void addVehicle() {
         System.out.print("Enter VIN: "); // Ask for VIN
         int vin = scanner.nextInt(); // Read VIN
         System.out.print("Enter Year: "); // Ask for year
@@ -130,7 +130,7 @@ public class UserInterface {
     }
 
     // Method to find vehicles by price range
-    private void findVehiclesByPrice() {
+    public void findVehiclesByPrice() {
         System.out.print("Enter minimum price: "); // Ask for minimum price
         double minPrice = scanner.nextDouble(); // Read minimum price
         System.out.print("Enter maximum price: "); // Ask for maximum price
@@ -149,7 +149,7 @@ public class UserInterface {
     }
 
     // Method to find vehicles by make/model
-    private void findVehiclesByMakeModel() {
+    public void findVehiclesByMakeModel() {
         System.out.print("Enter make: "); // Ask for make
         String make = scanner.next(); // Read make
         System.out.print("Enter model: "); // Ask for model
@@ -168,7 +168,7 @@ public class UserInterface {
     }
 
     // Method to find vehicles by year range
-    private void findVehiclesByYear() {
+    public void findVehiclesByYear() {
         System.out.print("Enter minimum year: "); // Ask for minimum year
         int minYear = scanner.nextInt(); // Read minimum year
         System.out.print("Enter maximum year: "); // Ask for maximum year
@@ -187,7 +187,7 @@ public class UserInterface {
     }
 
     // Method to find vehicles by color
-    private void findVehiclesByColor() {
+    public void findVehiclesByColor() {
         System.out.print("Enter color: "); // Ask for color
         String color = scanner.next(); // Read color
 
@@ -204,7 +204,7 @@ public class UserInterface {
     }
 
     // Method to sell or lease a vehicle
-    private void sellOrLeaseVehicle() {
+    public void sellOrLeaseVehicle() {
         System.out.print("Enter VIN of the vehicle to sell/lease: "); // Ask for VIN
         int vin = scanner.nextInt(); // Read VIN
         Vehicle vehicle = dealership.getVehicleByVin(vin); // Find vehicle by VIN
